@@ -14,6 +14,17 @@ const assets = [
   '/pages/fallback.html'
 ];
 
+// cache size limit
+const limitCacheSize = (name, size) => {
+  caches.open(name).then(cache => {
+    cache.keys().then(keys => {
+      if(keys.length > size) {
+        cache.delete(keys[0]).then(limitCacheSize(name, size))
+      }
+    })
+  })
+}
+
 
 // install service worker
 self.addEventListener('install', (event) => {
@@ -45,12 +56,12 @@ self.addEventListener('activate', event => {
 // fetch event
 self.addEventListener('fetch', event => {
   // console.log('fetch event', event)
-  
   // event.respondWith(
   //   caches.match(event.request).then(cacheResponse => {
   //     return cacheResponse || fetch(event.request).then(fetchResponse => {
   //       return caches.open(dynamicCache).then(cache => {
   //         cache.put(event.request.url, fetchResponse.clone())
+  //         limitCacheSize(dynamicCache, 15)
   //         return fetchResponse
   //       })
   //     })

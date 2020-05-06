@@ -10,7 +10,8 @@ const assets = [
   '/css/materialize.min.css',
   '/img/dish.png',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
-  'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2'
+  'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
+  '/pages/fallback.html'
 ];
 
 
@@ -33,7 +34,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       // console.log(keys); 
       return Promise.all(keys
-        .filter(key => key !== staticCacheName)
+        .filter(key => key !== staticCacheName && key !== dynamicCache)
         .map(key => caches.delete(key))
       )
     })
@@ -52,6 +53,11 @@ self.addEventListener('fetch', event => {
           return fetchResponse
         })
       })
+    }).catch(() => {
+      // if we fail to fetch an html pager, replace with fallback. Don't replace images / css etc.
+      if(event.request.url.indexOf('.html')) {
+        caches.match('/pages/fallback.html')
+      }
     })
   )
 })

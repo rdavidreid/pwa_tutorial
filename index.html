@@ -107,7 +107,28 @@
     </form>
   </div>
 
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDyxUYYoW0e50IAWPXlmi0tTABSmmBI2Lk",
+      authDomain: "food-ninja-479bf.firebaseapp.com",
+      databaseURL: "https://food-ninja-479bf.firebaseio.com",
+      projectId: "food-ninja-479bf",
+      storageBucket: "food-ninja-479bf.appspot.com",
+      messagingSenderId: "120947803712",
+      appId: "1:120947803712:web:da340685f3a6ec3116c1a5"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
   <script src="/js/app.js"></script>
+  <script src="/js/db.js"></script>
   <script src="/js/ui.js"></script>
 </body>
 </html>

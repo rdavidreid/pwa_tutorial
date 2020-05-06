@@ -45,19 +45,20 @@ self.addEventListener('activate', event => {
 // fetch event
 self.addEventListener('fetch', event => {
   // console.log('fetch event', event)
-  event.respondWith(
-    caches.match(event.request).then(cacheResponse => {
-      return cacheResponse || fetch(event.request).then(fetchResponse => {
-        return caches.open(dynamicCache).then(cache => {
-          cache.put(event.request.url, fetchResponse.clone())
-          return fetchResponse
-        })
-      })
-    }).catch(() => {
-      // if we fail to fetch an html pager, replace with fallback. Don't replace images / css etc.
-      if(event.request.url.indexOf('.html')) {
-        caches.match('/pages/fallback.html')
-      }
-    })
-  )
+  
+  // event.respondWith(
+  //   caches.match(event.request).then(cacheResponse => {
+  //     return cacheResponse || fetch(event.request).then(fetchResponse => {
+  //       return caches.open(dynamicCache).then(cache => {
+  //         cache.put(event.request.url, fetchResponse.clone())
+  //         return fetchResponse
+  //       })
+  //     })
+  //   }).catch(() => {
+  //     // if we fail to fetch an html pager, replace with fallback. Don't replace images / css etc.
+  //     if(event.request.url.indexOf('.html')) {
+  //       caches.match('/pages/fallback.html')
+  //     }
+  //   })
+  // )
 })

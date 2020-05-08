@@ -55,21 +55,22 @@ self.addEventListener('activate', event => {
 
 // fetch event
 self.addEventListener('fetch', event => {
-  // console.log('fetch event', event)
-  // event.respondWith(
-  //   caches.match(event.request).then(cacheResponse => {
-  //     return cacheResponse || fetch(event.request).then(fetchResponse => {
-  //       return caches.open(dynamicCache).then(cache => {
-  //         cache.put(event.request.url, fetchResponse.clone())
-  //         limitCacheSize(dynamicCache, 15)
-  //         return fetchResponse
-  //       })
-  //     })
-  //   }).catch(() => {
-  //     // if we fail to fetch an html pager, replace with fallback. Don't replace images / css etc.
-  //     if(event.request.url.indexOf('.html')) {
-  //       caches.match('/pages/fallback.html')
-  //     }
-  //   })
-  // )
+  if(event.request.url.indexOf('firestore.googleapis.com') === -1){
+    event.respondWith(
+      caches.match(event.request).then(cacheResponse => {
+        return cacheResponse || fetch(event.request).then(fetchResponse => {
+          return caches.open(dynamicCache).then(cache => {
+            cache.put(event.request.url, fetchResponse.clone())
+            limitCacheSize(dynamicCache, 15)
+            return fetchResponse
+          })
+        })
+      }).catch(() => {
+        // if we fail to fetch an html pager, replace with fallback. Don't replace images / css etc.
+        if(event.request.url.indexOf('.html')) {
+          caches.match('/pages/fallback.html')
+        }
+      })
+    )
+  }
 })

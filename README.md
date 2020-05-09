@@ -9,3 +9,6 @@ PWA Tutorial By Net Ninja:
   * https://web.dev/add-manifest/
 * Index DB - browser DB for offline DB access.
   * https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Using_IndexedDB_in_chrome
+
+### Todo:
+*  reset DB every X hours

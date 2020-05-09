@@ -11,4 +11,6 @@ PWA Tutorial By Net Ninja:
   * https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Using_IndexedDB_in_chrome
 
 ### Todo:
-*  reset DB every X hours
+* Delete acting funny - why?
+* reset DB every X hours
+* secret management
